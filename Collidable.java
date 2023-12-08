@@ -16,24 +16,23 @@ public class Collidable {
   public static int frameWidth;
   public static int frameHeight;
 
-  public Collidable(int x, int y, int w, int h){
+  public Collidable(int x, int y, int w, int h) {
     this.x = x;
     this.y = y;
     this.width = w;
     this.height = h;
   }
 
-  public Collidable(int x, int y, int w, int h, String imageUrl){
+  public Collidable(int x, int y, int w, int h, String imageUrl) {
     this(x, y, w, h);
     setImage(imageUrl);
   }
 
-  public void setImage(String imageName){
-    try{
+  public void setImage(String imageName) {
+    try {
       URL url = getClass().getResource(imageName);
       image = ImageIO.read(url);
-    }
-    catch(Exception e){
+    } catch (Exception e) {
       System.out.println("Error loading image. /nCould not load: " + imageName);
     }
   }
@@ -54,7 +53,7 @@ public class Collidable {
     return this.y + this.height;
   }
 
-  public void setPos( int x, int y) {
+  public void setPos(int x, int y) {
     this.x = x;
     this.y = y;
   }
@@ -68,11 +67,11 @@ public class Collidable {
   }
 
   public int getX() {
-    return x;   //finish this method
+    return x; // finish this method
   }
 
   public int getY() {
-    return y;  //finish this method
+    return y; // finish this method
   }
 
   public void setWidth(int w) {
@@ -92,39 +91,36 @@ public class Collidable {
     return height;
   }
 
-  public static void setFrameSize(int w, int h){
+  public static void setFrameSize(int w, int h) {
     Collidable.frameWidth = w;
     Collidable.frameHeight = h;
   }
 
-  public void draw(Graphics window){
-    if(image != null){
-      //generate inputed image
+  public void draw(Graphics window) {
+    if (image != null) {
+      // generate inputed image
       window.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
-    }
-    else{
-      //generate red bounding box if no image is provided
+    } else {
+      // generate red bounding box if no image is provided
       window.setColor(Color.YELLOW);
       window.fillRect(getX(), getY(), getWidth(), getHeight());
     }
   }
 
-  public void clear(Graphics window){
+  public void clear(Graphics window) {
     window.clearRect(getX(), getY(), getWidth(), getHeight());
   }
 
-
-  public boolean didCollide(Collidable other){
+  public boolean didCollide(Collidable other) {
     int thisBottom = this.getY() + this.getHeight();
     int thisRight = this.getX() + this.getWidth();
     int otherBottom = other.getY() + other.getHeight();
     int otherRight = other.getX() + other.getWidth();
 
-
-    if (thisBottom < other.getY() || this.getY() > otherBottom || thisRight < other.getX() || this.getX() > otherRight) {
+    if (thisBottom < other.getY() || this.getY() > otherBottom || thisRight < other.getX()
+        || this.getX() > otherRight) {
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
