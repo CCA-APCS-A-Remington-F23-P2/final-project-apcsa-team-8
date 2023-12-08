@@ -11,7 +11,11 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 
-public class GameContainer extends Canvas implements KeyListener, Runnable {
+public class GameContainer extends Canvas implements KeyListener, Runnable
+{
+
+  Moveable moveable;
+  Floor floor;
 
   HashMap<String, Boolean> keyMap = new HashMap<String, Boolean>();
   private BufferedImage back;
@@ -20,10 +24,11 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     this.addKeyListener(this);
     new Thread(this).start();
     setVisible(true);
-    Collidable.setFrameSize(getWidth(), getHeight());
+    Collidable.setFrameSize(800, 600);
 
 
-    
+    moveable = new Moveable();
+    floor = new Floor();
 
   }
 
@@ -36,26 +41,23 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     if (back==null)
       back = (BufferedImage)(createImage(getWidth(),getHeight()));
     Graphics gameWindow = back.createGraphics();
-    gameWindow.clearRect(0,0,getWidth(),getHeight());
 
     gameWindow.setColor(Color.RED);
     gameWindow.fillRect(0, 0, getWidth(), getHeight());
 
+    for(String i : keyMap.keySet()){
+      if(keyMap.get(i)){
+        if(i.equals("space") || i.equals("up")){
+          moveable.jump();
+          keyMap.put(i, false);
+        }
+        moveable.move(i, floor);
+      }
+    }
 
+    floor.draw(gameWindow);
+    moveable.draw(gameWindow);
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     twoDGraph.drawImage(back, null, 0, 0);
   }
