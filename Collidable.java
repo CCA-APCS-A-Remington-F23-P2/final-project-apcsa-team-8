@@ -14,9 +14,6 @@ public class Collidable {
   private Image image;
   private Color color;
 
-  public static int frameWidth;
-  public static int frameHeight;
-
   public Collidable(int x, int y, int w, int h) {
     this.x = x;
     this.y = y;
@@ -105,18 +102,13 @@ public class Collidable {
     return height;
   }
 
-  public static void setFrameSize(int w, int h) {
-    Collidable.frameWidth = w;
-    Collidable.frameHeight = h;
-  }
-
   public void draw(Graphics window) {
     if (image != null) {
       // generate inputed image
       window.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
     }
     else {
-      // generate red bounding box if no image is provided
+      // generate box if no image is provided
       window.setColor(color != null ? color : Color.RED);
       window.fillRect(getX(), getY(), getWidth(), getHeight());
     }

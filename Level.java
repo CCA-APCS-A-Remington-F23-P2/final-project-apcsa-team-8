@@ -36,8 +36,22 @@ public class Level {
     } catch(Exception e){}
   }
 
-  public ArrayList<TerrainBlock> getBlockArray(){
-    ArrayList<TerrainBlock> blockArray = new ArrayList<TerrainBlock>();
-    return blockArray;
+  public TerrainBlock[][] getTerrain(){
+    int windowHeight = GameManager.HEIGHT / 20;
+    
+    TerrainBlock[][] terrain = new TerrainBlock[5][40];
+    System.out.println(rawInfo.size());
+    System.out.println(terrain.length);
+    System.out.println(terrain[0].length);
+    //new TerrainBlock[windowHeight][rawInfo.size() / windowHeight];
+    
+    for(int r = 0; r < terrain.length; r++){
+      for(int c = 0; c < terrain[0].length; c++){
+        int blockId = rawInfo.get(r * terrain[0].length + c);
+        terrain[r][c] = blockList.get(blockId).clone(c * 20, r * 20);
+      }  
+    }
+    
+    return terrain;
   }
 }

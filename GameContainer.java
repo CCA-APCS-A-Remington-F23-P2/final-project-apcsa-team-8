@@ -25,7 +25,6 @@ public class GameContainer extends Canvas implements KeyListener, Runnable
     this.addKeyListener(this);
     new Thread(this).start();
     setVisible(true);
-    Collidable.setFrameSize(800, 600);
 
 
     // moveable = new Moveable();
@@ -44,7 +43,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable
       back = (BufferedImage)(createImage(getWidth(),getHeight()));
     Graphics gameWindow = back.createGraphics();
 
-    gameWindow.setColor(Color.RED);
+    gameWindow.setColor(Color.BLACK);
     gameWindow.fillRect(0, 0, getWidth(), getHeight());
 
     // for(String i : keyMap.keySet()){

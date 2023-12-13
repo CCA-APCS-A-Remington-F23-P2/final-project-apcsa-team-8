@@ -57,7 +57,7 @@ public class Moveable extends Collidable{
   }
 
   public boolean touchingEdge() {
-    return getLeft() <= 0 || getRight() >= frameWidth || getTop() <= 0 || getBottom() >= frameHeight; 
+    return getLeft() <= 0 || getRight() >= GameManager.WIDTH || getTop() <= 0 || getBottom() >= GameManager.HEIGHT; 
   }
 
   public boolean touchingFloor() {
@@ -65,7 +65,7 @@ public class Moveable extends Collidable{
   }
 
   public boolean pastEdge() {
-    return getRight() <= 0 || getLeft() >= frameWidth || getBottom() <= 0 || getTop() >= frameHeight;
+    return getRight() <= 0 || getLeft() >= GameManager.WIDTH || getBottom() <= 0 || getTop() >= GameManager.HEIGHT;
   }
 
   public void move(String direction, Floor floor){
