@@ -14,7 +14,7 @@ public class Asteroid extends MovingThing{
     super(x, y, w, h);
     speed = s;
     try{
-      URL url = getClass().getResource("asteroid.jpg");
+      URL url = getClass().getResource("asteroid.png");
       image = ImageIO.read(url);
     }
     catch(Exception e){

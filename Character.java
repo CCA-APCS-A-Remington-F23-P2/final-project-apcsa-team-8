@@ -11,6 +11,7 @@ public class Character extends MovingThing{
   // private int lives;
   // private int score;
   // private int level;
+  
   private Image image;
   private int speed;
 
@@ -26,7 +27,7 @@ public class Character extends MovingThing{
     super(x, y, w, h);
     speed = s;
     try{
-      URL url = getClass().getResource("starman.jpg");
+      URL url = getClass().getResource("standingStarman.jpg");
       image = ImageIO.read(url);
     }
     catch(Exception e){
