@@ -16,6 +16,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable
 
   Moveable moveable;
   Floor floor;
+  Terrain terrain;
 
   HashMap<String, Boolean> keyMap = new HashMap<String, Boolean>();
   private BufferedImage back;
@@ -27,8 +28,9 @@ public class GameContainer extends Canvas implements KeyListener, Runnable
     Collidable.setFrameSize(800, 600);
 
 
-    moveable = new Moveable();
-    floor = new Floor();
+    // moveable = new Moveable();
+    // floor = new Floor();
+    terrain = new Terrain();
 
   }
 
@@ -45,18 +47,20 @@ public class GameContainer extends Canvas implements KeyListener, Runnable
     gameWindow.setColor(Color.RED);
     gameWindow.fillRect(0, 0, getWidth(), getHeight());
 
-    for(String i : keyMap.keySet()){
-      if(keyMap.get(i)){
-        if(i.equals("space") || i.equals("up")){
-          moveable.jump();
-          keyMap.put(i, false);
-        }
-        moveable.move(i, floor);
-      }
-    }
+    // for(String i : keyMap.keySet()){
+    //   if(keyMap.get(i)){
+    //     if(i.equals("space") || i.equals("up")){
+    //       moveable.jump();
+    //       keyMap.put(i, false);
+    //     }
+    //     moveable.move(i, floor);
+    //   }
+    // }
 
-    floor.draw(gameWindow);
-    moveable.draw(gameWindow);
+    // floor.draw(gameWindow);
+    // moveable.draw(gameWindow);
+    terrain.draw(gameWindow);
+    
 
 
     twoDGraph.drawImage(back, null, 0, 0);

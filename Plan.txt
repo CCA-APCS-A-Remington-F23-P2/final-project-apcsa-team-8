@@ -1,0 +1,3 @@
+Level class stores level information after inputting level file and stores levels as an arraylist of terrrain blocks
+Terrain block represents invidiual level blocks and stores image and block type
+Terrain loads in different level classes and draws the level array

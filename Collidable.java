@@ -12,6 +12,7 @@ public class Collidable {
   private int height;
 
   private Image image;
+  private Color color;
 
   public static int frameWidth;
   public static int frameHeight;
@@ -28,6 +29,11 @@ public class Collidable {
     setImage(imageUrl);
   }
 
+  public Collidable(int x, int y, int w, int h, Color color) {
+    this(x, y, w, h);
+    setColor(color);
+  }
+
   public void setImage(String imageName) {
     try {
       URL url = getClass().getResource(imageName);
@@ -35,6 +41,14 @@ public class Collidable {
     } catch (Exception e) {
       System.out.println("Error loading image. /nCould not load: " + imageName);
     }
+  }
+
+  public void setColor(Color color) {
+    this.color = color;
+  }
+
+  public Color getColor() {
+    return color;
   }
 
   public int getLeft() {
@@ -100,9 +114,10 @@ public class Collidable {
     if (image != null) {
       // generate inputed image
       window.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
-    } else {
+    }
+    else {
       // generate red bounding box if no image is provided
-      window.setColor(Color.YELLOW);
+      window.setColor(color != null ? color : Color.RED);
       window.fillRect(getX(), getY(), getWidth(), getHeight());
     }
   }
