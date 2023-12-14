@@ -14,9 +14,10 @@ import java.util.*;
 public class GameContainer extends Canvas implements KeyListener, Runnable
 {
 
-  Moveable moveable;
+  Player player;
   Floor floor;
   Terrain terrain;
+  public static Moveable camera;
 
   HashMap<String, Boolean> keyMap = new HashMap<String, Boolean>();
   private BufferedImage back;
@@ -30,11 +31,28 @@ public class GameContainer extends Canvas implements KeyListener, Runnable
     // moveable = new Moveable();
     // floor = new Floor();
     terrain = new Terrain();
+    camera = new Moveable(0,0,0,0,0);
+    player = new Player(20,20);
+    
 
   }
 
   public void update(Graphics window) {
+    for(String key : keyMap.keySet()){
+      if(keyMap.get(key)){
+        if(key.equals("left") && keyMap.get(key) == true){
+          camera.move(new Vector2(-1,0));
+          player.move(new Vector2(-1,0));
+        }
+        if(key.equals("right") && keyMap.get(key) == true){
+          camera.move(new Vector2(1,0));
+          player.move(new Vector2(1,0));
+        }
+      }
+    }
+    player.update();
     paint(window);
+    
   }
 
   public void paint( Graphics window ) {
@@ -59,6 +77,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable
     // floor.draw(gameWindow);
     // moveable.draw(gameWindow);
     terrain.draw(gameWindow);
+    player.draw(gameWindow);
     
 
 

@@ -6,27 +6,27 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 
 public class Collidable {
-  private int x;
-  private int y;
+  private double x;
+  private double y;
   private int width;
   private int height;
 
   private Image image;
   private Color color;
 
-  public Collidable(int x, int y, int w, int h) {
+  public Collidable(double x, double y, int w, int h) {
     this.x = x;
     this.y = y;
     this.width = w;
     this.height = h;
   }
 
-  public Collidable(int x, int y, int w, int h, String imageUrl) {
+  public Collidable(double x, double y, int w, int h, String imageUrl) {
     this(x, y, w, h);
     setImage(imageUrl);
   }
 
-  public Collidable(int x, int y, int w, int h, Color color) {
+  public Collidable(double x, double y, int w, int h, Color color) {
     this(x, y, w, h);
     setColor(color);
   }
@@ -48,40 +48,40 @@ public class Collidable {
     return color;
   }
 
-  public int getLeft() {
+  public double getLeft() {
     return this.x;
   }
 
-  public int getRight() {
+  public double getRight() {
     return this.x + this.width;
   }
 
-  public int getTop() {
+  public double getTop() {
     return this.y;
   }
 
-  public int getBottom() {
+  public double getBottom() {
     return this.y + this.height;
   }
 
-  public void setPos(int x, int y) {
+  public void setPos(double x, double y) {
     this.x = x;
     this.y = y;
   }
 
-  public void setX(int x) {
+  public void setX(double x) {
     this.x = x;
   }
 
-  public void setY(int y) {
+  public void setY(double y) {
     this.y = y;
   }
 
-  public int getX() {
+  public double getX() {
     return x; // finish this method
   }
 
-  public int getY() {
+  public double getY() {
     return y; // finish this method
   }
 
@@ -105,30 +105,31 @@ public class Collidable {
   public void draw(Graphics window) {
     if (image != null) {
       // generate inputed image
-      window.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
+      window.drawImage(image, (int)(getX() - GameContainer.camera.getX()), (int)(getY() - GameContainer.camera.getY()), getWidth(), getHeight(), null);
     }
     else {
       // generate box if no image is provided
       window.setColor(color != null ? color : Color.RED);
-      window.fillRect(getX(), getY(), getWidth(), getHeight());
+      window.fillRect((int)(getX() - GameContainer.camera.getX()), (int)(getY() - GameContainer.camera.getY()), getWidth(), getHeight());
     }
   }
 
   public void clear(Graphics window) {
-    window.clearRect(getX(), getY(), getWidth(), getHeight());
+    window.clearRect((int)getX(), (int)getY(), getWidth(), getHeight());
   }
 
   public boolean didCollide(Collidable other) {
-    int thisBottom = this.getY() + this.getHeight();
-    int thisRight = this.getX() + this.getWidth();
-    int otherBottom = other.getY() + other.getHeight();
-    int otherRight = other.getX() + other.getWidth();
+    // int thisBottom = this.getY() + this.getHeight();
+    // int thisRight = this.getX() + this.getWidth();
+    // int otherBottom = other.getY() + other.getHeight();
+    // int otherRight = other.getX() + other.getWidth();
 
-    if (thisBottom < other.getY() || this.getY() > otherBottom || thisRight < other.getX()
-        || this.getX() > otherRight) {
-      return false;
-    } else {
-      return true;
-    }
+    // if (thisBottom < other.getY() || this.getY() > otherBottom || thisRight < other.getX()
+    //     || this.getX() > otherRight) {
+    //   return false;
+    // } else {
+    //   return true;
+    // }
+    return false;
   }
 }

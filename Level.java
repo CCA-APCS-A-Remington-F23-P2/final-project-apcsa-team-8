@@ -15,6 +15,7 @@ public class Level {
   }
 
   public void initBlockList(){
+    blockList.put(0, new TerrainBlock("Air", 0, 1, Color.WHITE));
     blockList.put(1, new TerrainBlock("Grass", 1, 1, Color.GREEN));
     blockList.put(2, new TerrainBlock("Dirt", 2, 1, Color.BLACK));
     blockList.put(3, new TerrainBlock("Stone", 3, 1, Color.GRAY));
@@ -37,9 +38,9 @@ public class Level {
   }
 
   public TerrainBlock[][] getTerrain(){
-    int windowHeight = GameManager.HEIGHT / 20;
+    int windowHeight = GameManager.HEIGHT/20;
     
-    TerrainBlock[][] terrain = new TerrainBlock[5][40];
+    TerrainBlock[][] terrain = new TerrainBlock[16][40];
     System.out.println(rawInfo.size());
     System.out.println(terrain.length);
     System.out.println(terrain[0].length);

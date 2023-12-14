@@ -8,16 +8,16 @@ import java.util.*;
 
 public class Moveable extends Collidable{
 
-  private int xSpeed;
+  private double xSpeed;
   private double ySpeed;
 
   private String[] movements;
 
-  public Moveable(int x, int y, int w, int h, int s){
+  public Moveable(double x, double y, int w, int h, int s){
     super(x, y, w, h);
   }
 
-  public Moveable(int x, int y, int w, int h, int s, String image){
+  public Moveable(double x, double y, int w, int h, int s, String image){
     super(x, y, w, h, image);
     this.xSpeed = s;
   }
@@ -35,12 +35,12 @@ public class Moveable extends Collidable{
     return this.movements;
   }
 
-  public void setSpeed(int x, int y){
+  public void setSpeed(double x, double y){
     this.xSpeed = x;
     this.ySpeed = y;
   }
 
-  public void setXSpeed(int x){
+  public void setXSpeed(double x){
     this.xSpeed = x;
   }
 
@@ -52,7 +52,7 @@ public class Moveable extends Collidable{
     return this.ySpeed;
   }
 
-  public int getXSpeed(){
+  public double getXSpeed(){
     return this.xSpeed;
   }
 
@@ -68,23 +68,9 @@ public class Moveable extends Collidable{
     return getRight() <= 0 || getLeft() >= GameManager.WIDTH || getBottom() <= 0 || getTop() >= GameManager.HEIGHT;
   }
 
-  public void move(String direction, Floor floor){
-    direction.toLowerCase();
-
-    for(String movement : movements){
-
-      if(!direction.contains(movement)) continue;
-      else if(movement.contains("down")){
-        ySpeed = -5;
-      }
-
-      if(movement.contains("left")){
-        xSpeed = -2;
-      }
-      else if(movement.contains("right")){
-        xSpeed = 2;
-      }
-    }
+  public void move(Vector2 direction){
+    this.setX(this.getX() + direction.getX());
+    this.setY(this.getY() + direction.getY());
   }
 
   public void jump(){
@@ -94,27 +80,26 @@ public class Moveable extends Collidable{
   }
 
   public void movementIterator(){
-    int prevX = getX();
-    int prevY = getY();
+    // double prevX = getX();
+    // double prevY = getY();
 
-    setX(getX() + xSpeed);
-    setY((int)(getY() - ySpeed));
+    // setX(getX() + xSpeed);
+    // setY((int)(getY() - ySpeed));
 
-    setXSpeed(0);
+    // setXSpeed(0);
 
-    if(touchingEdge() || touchingFloor()){
-      setPos(prevX, prevY);
-      setYSpeed(0);
-    }
-    else{
-      if(ySpeed > 3) ySpeed -= 0.3;
-      else ySpeed -= 0.05;
-    }
+    // if(touchingEdge() || touchingFloor()){
+    //   setPos(prevX, prevY);
+    //   setYSpeed(0);
+    // }
+    // else{
+    //   if(ySpeed > 3) ySpeed -= 0.3;
+    //   else ySpeed -= 0.05;
+    // }
   }
 
   @Override
   public void draw(Graphics window){
     super.draw(window);
-    movementIterator();
   }
 }
