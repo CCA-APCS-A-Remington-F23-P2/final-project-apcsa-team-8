@@ -30,15 +30,17 @@ public class Asteroid extends MovingThing{
     return speed;
   }
 
-  public void move(String direction){
-    if (direction.equals("LEFT"))
-      setX(getX() - 1);
-  else if(direction.equals("RIGHT"))
-    setX(getX() + 1);
-  else if (direction.equals("UP"))
-    setY(getY() - 1);
-  else if(direction.equals("DOWN"))
-    setY(getY() + 1);
+  public void move(String s){
+    setX(getX() - 35);
+    setY(getY() + 35);
+  //   if (direction.equals("LEFT"))
+  //     setX(getX() - 1);
+  // else if(direction.equals("RIGHT"))
+  //   setX(getX() + 1);
+  // if (direction.equals("UP"))
+  //   setY(getY() - 1);
+  // else if(direction.equals("DOWN"))
+  //   setY(getY() + 1);
   }
 
   public void draw(Graphics window){

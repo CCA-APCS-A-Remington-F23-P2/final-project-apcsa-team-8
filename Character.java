@@ -27,7 +27,7 @@ public class Character extends MovingThing{
     super(x, y, w, h);
     speed = s;
     try{
-      URL url = getClass().getResource("standingStarman.jpg");
+      URL url = getClass().getResource("standingStarman.png");
       image = ImageIO.read(url);
     }
     catch(Exception e){
@@ -44,15 +44,35 @@ public class Character extends MovingThing{
     return speed;
   }
 
+  public void setImage(Image i){
+    image = i;
+  }
+
+  public Image getImage(){
+    return image;
+  }
+
   public void move(String direction){
-    if(direction.equals("LEFT"))
+    if(direction.equals("LEFT")){
       setX(getX() - speed);
-  else if (direction.equals("RIGHT"))
+    }
+  else if (direction.equals("RIGHT")){
     setX(getX() + speed);
-  else if(direction.equals("UP"))
+    
+  }
+  else if(direction.equals("UP")){
     setY(getY() - speed);
+    
+  }
   else if(direction.equals("DOWN"))
     setY(getY() + speed);
+    // try{
+    //   URL url5 = getClass().getResource("standingStarman.png");
+    //   image = ImageIO.read(url5);
+    // }
+    // catch(Exception e){
+      
+    // }
   }
 
 public void draw(Graphics window){
