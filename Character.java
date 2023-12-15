@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 
 public class Character extends MovingThing{
   //private static int HIGH_SCORE;
-  // private int lives;
-  // private int score;
+  private int lives;
+  private int score;
   // private int level;
   
   private Image image;
@@ -26,6 +26,8 @@ public class Character extends MovingThing{
   public Character(int x, int y, int w, int h, int s){
     super(x, y, w, h);
     speed = s;
+    lives = 3;
+    score = 0;
     try{
       URL url = getClass().getResource("standingStarman.png");
       image = ImageIO.read(url);
@@ -52,6 +54,28 @@ public class Character extends MovingThing{
     return image;
   }
 
+  public void setScore(int s){
+    score = s;
+  }
+
+  public int getScore(){
+    return score;
+  }
+
+  public void setLives(int L){
+    lives = L;
+  }
+
+  public int getLives(){
+    return lives;
+  }
+
+  public void removeLife(){
+    if(getLives() > 0){
+      lives--;
+    }
+  }
+  
   public void move(String direction){
     if(direction.equals("LEFT")){
       setX(getX() - speed);

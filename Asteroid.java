@@ -43,6 +43,13 @@ public class Asteroid extends MovingThing{
   //   setY(getY() + 1);
   }
 
+  //random x value
+  public void setRandPos(){
+    int x = (int)(Math.random() * 801);
+    setX(x);
+    setY(0);
+  }
+
   public void draw(Graphics window){
     window.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
   }

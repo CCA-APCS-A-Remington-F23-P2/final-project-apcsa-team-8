@@ -15,7 +15,7 @@ import java.util.*;
 
 public class GameContainer extends Canvas implements KeyListener, Runnable {
 
-  Character starman = new Character(300, 400, 50, 50, 1);
+  Character starman = new Character(100, 100, 50, 50, 1);
   
   //higher levels will have faster & more asteroids
   Asteroid asteroid = new Asteroid(300, 100, 50, 50, 2);
@@ -30,12 +30,11 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
   private Image stand;
 
   private static int HIGH_SCORE;
-  private int lives = 3;
-  private int score = 0;
-
 
   private static long timer = 0;
   private static long timer2 = 0;
+
+  private boolean isPaused = false;
 
   public GameContainer() {
     this.addKeyListener(this);
@@ -43,6 +42,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     setVisible(true);
     Collidable.setFrameSize(getWidth(), getHeight());
     keys = new boolean[5];
+    isPaused = false;
     try{
       leftWalk = ImageIO.read(getClass().getResource("leftForwardWalk.png"));
 
@@ -92,20 +92,25 @@ asteroid.draw(gameWindow);
     //when asteroid collides with ground, delete and reinitialize at top right corner
   
     if (asteroid.didCollide(starman)){
-      lives--;
-      starman.setPos(100, 100);
+      starman.removeLife();
+      isPaused = true;
+      
+      asteroid.setRandPos();
+      //starman.setPos(100, 100);
       //gameWindow.drawString("Uh oh!", 300, 300);
-    //   //pause screen
-    //   if (lives == 0){
-    //     gameWindow.setColor(Color.BLACK);
-    //     gameWindow.fillRect(0, 0, getWidth(), getHeight());
-    //     gameWindow.setColor(Color.WHITE);
-    //     gameWindow.drawString("GAME OVER", getWidth()/2-100, getHeight()/2);
-    //     gameWindow.drawString("Score: " + score, getWidth()/2-100, getHeight()/2+50);
-    //     gameWindow.drawString("High Score: " + HIGH_SCORE, getWidth()/2-100, getHeight()/2+100);
-    // }
+      // if(keys[4] == true && isPaused == true){
+      //   isPaused = false;
+      // }
+    }
+
+    if (isPaused == true){
+      pauseScreen(gameWindow);
+      if (keys[4]){
+        isPaused = false;
+      }
     }
     
+
 
 
     // if(keyMap.get("LEFT")){
@@ -152,6 +157,17 @@ asteroid.draw(gameWindow);
         starman.setImage(rightWalk);
       }
   }
+
+  public void pauseScreen(Graphics window){
+  //     //if you lose a life
+      setBackground(Color.BLACK);
+      window.setColor(Color.WHITE);
+      window.drawString("You lost a life!", 300, 300);
+      window.drawString("Lives remaining: " + starman.getLives(), 300, 350);
+      window.drawString("Score: " + starman.getScore(), 300, 400);
+      window.drawString("Press Space to resume.", 300, 450);
+  
+    }
 
 
   public void keyPressed(KeyEvent e) {
