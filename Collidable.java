@@ -10,6 +10,7 @@ public class Collidable {
   private int y;
   private int width;
   private int height;
+  private Color color;
 
   private Image image;
 
@@ -26,6 +27,11 @@ public class Collidable {
   public Collidable(int x, int y, int w, int h, String imageUrl){
     this(x, y, w, h);
     setImage(imageUrl);
+  }
+
+  public Collidable(double x, double y, int w, int h, Color color) {
+    this((int)x, (int)y, (int)w, (int)h); 
+    setColor(color);
   }
 
   public void setImage(String imageName){
@@ -53,6 +59,15 @@ public class Collidable {
   public int getBottom() {
     return this.y + this.height;
   }
+
+  public void setColor(Color color) {
+    this.color = color;
+  }
+
+  public Color getColor() {
+    return color;
+  }
+
 
   public void setPos( int x, int y) {
     this.x = x;
