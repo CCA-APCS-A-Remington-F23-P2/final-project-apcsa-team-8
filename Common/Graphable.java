@@ -11,6 +11,7 @@ public class Graphable {
 
   private Image image;
   private Color color;
+  private boolean reflected = false;
 
   public Graphable(int x, int y, int width, int height) {
     position = new Coordinate(x, y);
@@ -30,6 +31,16 @@ public class Graphable {
     catch(Exception e){
       System.out.println("Error loading image. /nCould not load: " + imageName);
     }
+  }
+
+  public void reflectImageToForwards(){
+    if(image == null) return;
+    reflected = false;
+  }  
+
+  public void reflectImageToBackwards(){
+    if(image == null) return;
+    reflected = true;
   }
 
   public void setColor(Color color){
@@ -59,7 +70,7 @@ public class Graphable {
   public void draw(Graphics window) {
     if(image != null){
       //generate inputed image
-      window.drawImage(image, position.getX(), position.getY(), size.getX(), size.getY(), null);
+      window.drawImage(image, position.getX() + (reflected ? size.getX() : 0), position.getY(), (reflected ? -1 : 1) * size.getX(), size.getY(), null);
     }
     else{
       //use color provides is not null, or just default to yellow

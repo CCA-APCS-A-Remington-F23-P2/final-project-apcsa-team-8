@@ -24,6 +24,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
   private Moveable object;
   private Collidable floor;
   private Terrain terrain;
+  private Player player;
 
   private Timer jumpDelay;
 
@@ -36,6 +37,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     floor = new Collidable(0, 200, 800, 20, Color.GREEN);
     terrain = new Terrain();
     terrain.setSelectedLevel(0);
+    player = new Player(100, 100, 30, 30, new Vector(0,0));
 
     jumpDelay = new Timer(200);
   }
@@ -61,15 +63,19 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
 
 
     // floor.draw(gameWindow);
+
+    
     terrain.draw(gameWindow);
     object.update(gameWindow, terrain.getTerrain());
+    player.update(gameWindow, terrain.getTerrain());
+
     
     twoDGraph.drawImage(back, null, 0, 0);
   }
 
   public void jump(){
     if(jumpDelay.isFinished()){
-      object.setVelocityY(-1 * 1.5);
+      player.setVelocityY(-1 * 1.5);
     }
   }
 
@@ -80,12 +86,14 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     if (e.getKeyCode() == KeyEvent.VK_LEFT)
     {
       keyMap.put("left", true);
-      object.setVelocityX(-speed);
+      player.setVelocityX(-speed);
+      player.reflectImageToBackwards();
     }
     if (e.getKeyCode() == KeyEvent.VK_RIGHT)
     {
       keyMap.put("right", true);
-      object.setVelocityX(speed);
+      player.setVelocityX(speed);
+      player.reflectImageToForwards();
     }
     if (e.getKeyCode() == KeyEvent.VK_UP)
     {
@@ -96,7 +104,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     if (e.getKeyCode() == KeyEvent.VK_DOWN)
     {
       keyMap.put("down", true);
-      object.setVelocityY(speed);
+      player.setVelocityY(speed);
     }
     if (e.getKeyCode() == KeyEvent.VK_SPACE)
     {
@@ -114,12 +122,12 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     if (e.getKeyCode() == KeyEvent.VK_LEFT)
     {
       keyMap.put("left", false);
-      object.setVelocityX(0.0);
+      player.setVelocityX(0.0);
     }
     if (e.getKeyCode() == KeyEvent.VK_RIGHT)
     {
       keyMap.put("right", false);
-      object.setVelocityX(0.0);
+      player.setVelocityX(0.0);
     }
     // if (e.getKeyCode() == KeyEvent.VK_UP)
     // {

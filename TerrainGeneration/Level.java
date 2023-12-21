@@ -35,12 +35,8 @@ public class Level {
       e.printStackTrace();
     }
 
-    blocks.put(0, Color.WHITE);
     blocks.put(1, Color.BLACK);
-    blocks.put(2, Color.RED);
-    blocks.put(3, Color.GREEN);
-    blocks.put(4, Color.BLUE);
-    blocks.put(5, Color.GRAY);
+    blocks.put(2, Color.GRAY);
   }
 
   public void parseLevel(){
@@ -80,6 +76,8 @@ public class Level {
     for(int row = 0; row < blocksPerCol; row++){
       for(int col = 0; col < blocksPerRow; col++){
         int type = map.get(row * blocksPerRow + col);
+
+        
         Block b = new Block(
             col * blockSize, 
             row * blockSize, 

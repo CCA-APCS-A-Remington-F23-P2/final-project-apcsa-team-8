@@ -3,8 +3,8 @@ public class Block extends Collidable {
 
   private int type;
 
-  public Block(int x, int y, int w, int h, Color color, int type) {
-    super(x, y, w, h, color);
+  public Block(int x, int y, int w, int h, Color vis, int type) {
+    super(x, y, w, h, vis);
     this.type = type;
   }
 

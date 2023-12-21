@@ -27,6 +27,10 @@ public class Coordinate {
     return new Vector(x, y);
   }
 
+  public void reflectX(){
+    x = -x;
+  }
+
   public String toString(){
     return "Coordinate: (" + x + ", " + y + ")";
   }
