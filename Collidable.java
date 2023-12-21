@@ -143,4 +143,19 @@ public class Collidable {
       return true;
     }
   }
+
+  public boolean didCollide(MovingThing other){
+    int thisBottom = this.getY() + this.getHeight();
+    int thisRight = this.getX() + this.getWidth();
+    int otherBottom = other.getY() + other.getHeight();
+    int otherRight = other.getX() + other.getWidth();
+
+
+    if (thisBottom < other.getY() || this.getY() > otherBottom || thisRight < other.getX() || this.getX() > otherRight) {
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 }

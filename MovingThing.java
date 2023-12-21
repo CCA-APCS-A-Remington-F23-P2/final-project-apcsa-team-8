@@ -65,6 +65,13 @@ public abstract class MovingThing implements Moveable{
     return height;
   }
 
+  public void setRandPos(){
+    int x = (int)(Math.random() * 801);
+
+    setX(x);
+    setY(0);
+  }
+
   public boolean didCollide(MovingThing other){
     boolean xOverlap = (this.getX()<other.getX()+getWidth()) && (this.getX()+getWidth()>other.getX());
 

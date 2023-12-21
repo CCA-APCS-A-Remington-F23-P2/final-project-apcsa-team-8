@@ -4,15 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.imageio.ImageIO;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+//import TerrainGeneration.*; 
 
 
 public class Character extends MovingThing{
   private int lives;
   private int score;
+  private Vector velocity;
+  //private Vector gravity = new Vector(0, 0.1);
   private static int HIGH_SCORE;
 
   private Image image;
   private int speed;
+  
 
   public Character(){
     this(10,10,10,10,10);
@@ -40,7 +47,7 @@ public class Character extends MovingThing{
   public void setSpeed(int s){
     speed = s;
   }
-
+  
   public int getSpeed(){
     return speed;
   }
@@ -57,8 +64,24 @@ public class Character extends MovingThing{
     score = s;
   }
 
+  public void addScore(){
+    score++;
+  }
+
   public void setHIGHScore(int s){
       HIGH_SCORE = s;
+     String h = String.valueOf(HIGH_SCORE);
+    try{
+      FileWriter writer = new FileWriter("highScore.txt");
+
+      for (int i = 0; i<h.length(); i++){
+        writer.write(h.charAt(i));
+      }
+      System.out.println("High score updated");
+      writer.close();
+    }
+    catch(Exception e){
+    }
   }
 
   public int getHighScore(){
