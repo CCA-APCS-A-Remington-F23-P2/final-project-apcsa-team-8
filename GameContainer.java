@@ -25,6 +25,8 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
   private Collidable floor;
   private Terrain terrain;
 
+  private Timer jumpDelay;
+
   public GameContainer() {
     this.addKeyListener(this);
     new Thread(this).start();
@@ -34,6 +36,8 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     floor = new Collidable(0, 200, 800, 20, Color.GREEN);
     terrain = new Terrain();
     terrain.setSelectedLevel(0);
+
+    jumpDelay = new Timer(200);
   }
 
   public void update(Graphics window) {
@@ -49,41 +53,56 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
     gameWindow.clearRect(0,0,getWidth(),getHeight());
 
     
+    // for(String i : keyMap.keySet()) {
+    //   if (keyMap.get(i)) {
+    //     System.out.println(i);
+    //   }
+    // }
 
 
-    terrain.draw(gameWindow);
     // floor.draw(gameWindow);
+    terrain.draw(gameWindow);
     object.update(gameWindow, terrain.getTerrain());
     
     twoDGraph.drawImage(back, null, 0, 0);
   }
 
+  public void jump(){
+    if(jumpDelay.isFinished()){
+      object.setVelocityY(-1 * 1.5);
+    }
+  }
+
   public void keyPressed(KeyEvent e) {
+
+    double speed = 1.5;
 
     if (e.getKeyCode() == KeyEvent.VK_LEFT)
     {
       keyMap.put("left", true);
-      object.setVelocityX(-3.0);
+      object.setVelocityX(-speed);
     }
     if (e.getKeyCode() == KeyEvent.VK_RIGHT)
     {
       keyMap.put("right", true);
-      object.setVelocityX(3.0);
+      object.setVelocityX(speed);
     }
     if (e.getKeyCode() == KeyEvent.VK_UP)
     {
       keyMap.put("up", true);
-      object.setVelocityY(-3.0);
+      jump();
+      keyMap.remove("up");
     }
     if (e.getKeyCode() == KeyEvent.VK_DOWN)
     {
       keyMap.put("down", true);
-      object.setVelocityY(3.0);
+      object.setVelocityY(speed);
     }
     if (e.getKeyCode() == KeyEvent.VK_SPACE)
     {
       keyMap.put("space", true);
-      object.setVelocityY(-3.0);
+      jump();
+      keyMap.remove("space");
     }
     if(e.getKeyCode() == KeyEvent.VK_ENTER){
       System.exit(0);
@@ -102,16 +121,16 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
       keyMap.put("right", false);
       object.setVelocityX(0.0);
     }
-    if (e.getKeyCode() == KeyEvent.VK_UP)
-    {
-      keyMap.put("up", false);
-      object.setVelocityY(0.0);
-    }
-    if (e.getKeyCode() == KeyEvent.VK_DOWN)
-    {
-      keyMap.put("down", false);
-      object.setVelocityY(0.0);
-    }
+    // if (e.getKeyCode() == KeyEvent.VK_UP)
+    // {
+    //   keyMap.put("up", false);
+    //   object.setVelocityY(0.0);
+    // }
+    // if (e.getKeyCode() == KeyEvent.VK_DOWN)
+    // {
+    //   keyMap.put("down", false);
+    //   object.setVelocityY(0.0);
+    // }
     if (e.getKeyCode() == KeyEvent.VK_SPACE)
     {
       keyMap.put("space", false);
@@ -126,7 +145,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
   public void run() {
     while(true) {
       //roughly 60 fps
-      Timer.sleep(15);
+      Timer.sleep(10);
       repaint();
     }
   }

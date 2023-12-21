@@ -29,7 +29,7 @@ public class Level {
       Scanner scan = new Scanner(file);
       String firstRow = scan.nextLine();
       blocksPerRow = firstRow.split(",").length;
-      blockSize = GameManager.WIDTH / blocksPerRow;
+      blockSize = GameManager.WIDTH / (blocksPerRow) + 2;
       scan.close();
     } catch(Exception e) {
       e.printStackTrace();
