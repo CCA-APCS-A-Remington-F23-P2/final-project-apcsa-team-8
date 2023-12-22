@@ -40,14 +40,14 @@ public class MenuState extends GameState {
 
     g.setColor(titleColor);
     g.setFont(titleFont);
-    g.drawString("Choose Your Adventure", 75, 75);
+    g.drawString("Choose Your Adventure", 45, 75);
 
     g.setFont(font);
     for(int i = 0; i < options.length; i++){
       if(i == currentChoice) g.setColor(Color.WHITE);
       else g.setColor(Color.RED);
 
-      g.drawString(options[i], 145, 140 + i * 15);
+      g.drawString(options[i], 135, 140 + i * 15);
     }
 
   }
