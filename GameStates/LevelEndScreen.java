@@ -6,14 +6,19 @@ public class LevelEndScreen extends GameState {
   private Collidable bg;
 
   private int currentChoice = 0;
-  private String[] options = { "Return", "Home"};
+  private String[] options = { "Return", "Home" };
 
   private Color color;
   private Color titleColor;
   private Font font;
   private Font titleFont;
+  
 
   public LevelEndScreen(GameStateManager gsm) {
+    this(gsm, null);
+  }
+
+  public LevelEndScreen(GameStateManager gsm, GameState next) {
     this.gsm = gsm;
 
     try{
@@ -45,7 +50,7 @@ public class LevelEndScreen extends GameState {
 
     g.setFont(font);
     for(int i = 0; i < options.length; i++){
-      if(i == currentChoice) g.setColor(Color.BLUE);
+      if(i == currentChoice) g.setColor(Color.WHITE);
       else g.setColor(Color.RED);
 
       g.drawString(options[i], 145, 140 + i * 15);

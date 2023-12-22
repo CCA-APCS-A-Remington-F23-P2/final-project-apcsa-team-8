@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.File;
 import java.util.Scanner;
 import java.awt.Graphics;
+import java.util.*;
 
 public class Player extends Moveable{
 
@@ -13,6 +14,7 @@ public class Player extends Moveable{
   private int speed;
 
   private Timer jumpDelay;
+  private int boosted = 0;
 
   private static Timer levelTimer = new Timer(25000);
 
@@ -97,8 +99,8 @@ public class Player extends Moveable{
     }
   }
 
-  public boolean isDead(){
-    return lives < 1;
+  public boolean isDead(ArrayList<Block> blocks){
+    return lives < 1 || collidesWithType(4, blocks);
   }
 
   public void fall(){
@@ -107,10 +109,22 @@ public class Player extends Moveable{
     }
   }
 
+  public void setBoosted(){
+    boosted++;
+    if(boosted == 1){
+      if(Math.random() < 0.5){
+        this.gravity = new Vector(0, 0.015);
+      }
+      else{
+        this.speed = 2;
+      }
+    }
+  }
+
   public void draw(Graphics g){
     super.draw(g);
 
-    if(score < HIGH_SCORE){
+    if(score > HIGH_SCORE){
       setHIGHScore(score);
     }
     

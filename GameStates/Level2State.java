@@ -8,6 +8,8 @@ public class Level2State extends GameState {
   public static Player player;
   public static AsteroidBelt asteroidBelt;
 
+  public static Collidable powerUp;
+
   Timer scoreTimer;
 
   public Level2State(GameStateManager gsm) {
@@ -18,9 +20,10 @@ public class Level2State extends GameState {
   public void init() {
     terrain = new Terrain();
     terrain.setSelectedLevel(1);
-    player = new Player(100, 50, 8, 14);
+    player = new Player(50, 150, 8, 14);
     asteroidBelt = new AsteroidBelt(3, 4);
     scoreTimer = new Timer(25000);
+    powerUp = new Collidable(50, 50, 10, 10, "GameStates/powerup.png");
   }
 
   public void update() {
@@ -28,13 +31,14 @@ public class Level2State extends GameState {
     if(futurePose.collidesWithType(3, terrain.getTerrain())){
       gsm.setState(3);
     }
-    if(player.isDead()){
+    if(player.isDead(terrain.getTerrain())){
       gsm.setState(3);
     }
   }
 
   public void draw(Graphics2D g) {
     terrain.draw(g);
+    powerUp.draw(g);
     player.update(g, terrain.getTerrain());
     asteroidBelt.update(g, terrain.getTerrain(), player);
     g.setColor(Color.RED);

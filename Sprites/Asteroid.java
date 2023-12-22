@@ -60,7 +60,8 @@ public class Asteroid extends Moveable{
       reset();
     }
     if(collidesWithSides() || !validPose(getVelocity(), blocks)){
-      reset();
+      int rand = (int)(Math.random() * 3);
+      if(rand == 0) reset();
     }
   }
 
