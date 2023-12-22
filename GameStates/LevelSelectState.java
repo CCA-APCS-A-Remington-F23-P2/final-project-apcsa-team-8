@@ -57,10 +57,10 @@ public class LevelSelectState extends GameState {
       gsm.setState(2);
     }
     if(currentChoice == 1){
-
+      gsm.setState(4);
     }
     if(currentChoice == 2){
-      
+      gsm.setState(5);
     }
     if(currentChoice == 3){
       gsm.setState(0);

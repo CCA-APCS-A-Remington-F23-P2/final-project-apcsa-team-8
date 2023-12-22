@@ -37,15 +37,13 @@ public class Player extends Moveable{
   }
 
   public void setHIGHScore(int s){
-      HIGH_SCORE = s;
-     String h = String.valueOf(HIGH_SCORE);
+    HIGH_SCORE = s;
+    String h = String.valueOf(HIGH_SCORE);
     try{
       FileWriter writer = new FileWriter("highScore.txt");
-
       for (int i = 0; i<h.length(); i++){
         writer.write(h.charAt(i));
       }
-      System.out.println("High score updated");
       writer.close();
     }
     catch(Exception e){
@@ -112,14 +110,14 @@ public class Player extends Moveable{
   public void draw(Graphics g){
     super.draw(g);
 
-    if(score > HIGH_SCORE){
+    if(score < HIGH_SCORE){
       setHIGHScore(score);
     }
     
     g.setColor(Color.RED);
     g.drawString("Lives: " + getLives(), 20, 20);
     g.drawString("" + HIGH_SCORE, 20, 40);
-    score = (int) levelTimer.getElapsedTime();
+    score = 25000 - (int) levelTimer.getElapsedTime();
     g.drawString("Score: " + score, 120, 20);
   }
   

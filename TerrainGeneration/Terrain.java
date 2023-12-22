@@ -19,6 +19,7 @@ public class Terrain {
   public void initLevelMap(){
     levels.add(new Level("Level1.txt"));
     levels.add(new Level("Level2.txt"));
+    levels.add(new Level("Level3.txt"));
   }
 
   public void setSelectedLevel(int level){

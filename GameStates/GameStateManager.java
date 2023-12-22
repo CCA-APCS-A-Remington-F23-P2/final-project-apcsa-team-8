@@ -10,7 +10,9 @@ public class GameStateManager {
     MENU(0),
     LEVEL_SELECT(1),
     LEVEL1(2),
-    ENDSCREEN(3);
+    ENDSCREEN(3),
+    LEVEL2(4),
+    LEVEL3(5);
 
     public int state;
 
@@ -28,6 +30,8 @@ public class GameStateManager {
     states.add(new LevelSelectState(this));
     states.add(new Level1State(this));
     states.add(new LevelEndScreen(this));
+    states.add(new Level2State(this));
+    states.add(new Level3State(this));
   }
 
   public void setState(int state){
