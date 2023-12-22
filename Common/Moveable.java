@@ -9,7 +9,7 @@ import TerrainGeneration.*;
 
 public class Moveable extends Collidable {
   private Vector velocity;
-  private Vector gravity = new Vector(0, 0.05);
+  private Vector gravity = new Vector(0, 0.1);
   private Coordinate prevPosition;
   int collisionTick = 0;
   

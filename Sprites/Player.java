@@ -1,13 +1,15 @@
 import java.awt.Color;
 import Common.*;
 import java.io.FileWriter;
+import java.io.File;
+import java.util.Scanner;
 import java.awt.Graphics;
 
 public class Player extends Moveable{
 
-  private int lives;
-  private int score;
-  private static int HIGH_SCORE;
+  public int lives;
+  public int score;
+  public static int HIGH_SCORE;
   private int speed;
 
   private Timer jumpDelay;
@@ -18,6 +20,7 @@ public class Player extends Moveable{
     setImage("standingStarman.png");
     jumpDelay = new Timer(500);
     lives = 3;
+    HIGH_SCORE = getHighScore();
     speed = 1;
   }
 
@@ -42,11 +45,20 @@ public class Player extends Moveable{
       writer.close();
     }
     catch(Exception e){
+      e.printStackTrace();
     }
   }
 
   public int getHighScore(){
-      return HIGH_SCORE;
+    int output = -1;
+      try{
+        Scanner scan = new Scanner(new File("highScore.txt"));
+        output = scan.nextInt();
+        scan.close();
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+    return output;
   }
 
   public int getScore(){
@@ -93,6 +105,7 @@ public class Player extends Moveable{
     super.draw(g);
     g.setColor(Color.RED);
     g.drawString("Lives: " + getLives(), 20, 20);
+    g.drawString("" + HIGH_SCORE, 20, 40);
   }
   
 }

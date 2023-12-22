@@ -1,20 +1,20 @@
 public class Timer{
   private long startTime;
   private long currTime;
-  private int delay;
-  private int delayRandParamMin;
-  private int delayRandParamMax;
+  private long delay;
+  private long delayRandParamMin;
+  private long delayRandParamMax;
 
   public Timer() {
     this(0);
   }
 
-  public Timer(int delay) {
+  public Timer(long delay) {
     reset();
     this.delay = delay;
   }
 
-  public Timer(int delayRandParamMin, int delayRandParamMax) {
+  public Timer(long delayRandParamMin, long delayRandParamMax) {
     reset();
     this.delayRandParamMin = delayRandParamMin;
     this.delayRandParamMax = delayRandParamMax;
@@ -25,16 +25,16 @@ public class Timer{
     startTime = System.currentTimeMillis();
   }
 
-  public int getElapsedTime() {
+  public long getElapsedTime() {
     currTime = System.currentTimeMillis();
     return (int)(currTime - startTime);
   }
 
-  public void setDelay(int delay) {
+  public void setDelay(long delay) {
     this.delay = delay;
   }
 
-  private int getRandDelay() {
+  private long getRandDelay() {
     return (int)(Math.random()*(delayRandParamMax - delayRandParamMin) + delayRandParamMin);
   }
 
@@ -51,7 +51,7 @@ public class Timer{
     return false;
   }
 
-  public static void sleep(int delay) {
+  public static void sleep(long delay) {
     try{
       Thread.currentThread().sleep(delay);
     }

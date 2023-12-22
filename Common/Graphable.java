@@ -70,11 +70,17 @@ public class Graphable {
   public void draw(Graphics window) {
     if(image != null){
 
-      
-      //generate inputed image
-      window.fillRect(position.getX(), position.getY(), size.getX(), size.getY());
-      window.drawImage(image, position.getX() - 20 + (reflected ? size.getX() + 40: 0), position.getY() - 5, (reflected ? -1 : 1) * (size.getX() + 40), size.getY() + 10, null);
-    }
+      int xOffset = 8;
+      int yOffset = 1;
+
+      int width = (size.getX() + 2*xOffset);
+      int height = size.getY() + 2*yOffset;;
+
+      int x = position.getX() - xOffset + (reflected ? width: 0);
+      int y = position.getY() - yOffset;
+
+      window.drawImage(image, x, y, (reflected ? -width : width), height, null);
+    } 
     else{
       //use color provides is not null, or just default to yellow
       window.setColor(color != null ? color : Color.YELLOW);

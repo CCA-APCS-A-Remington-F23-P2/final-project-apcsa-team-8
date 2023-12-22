@@ -18,10 +18,6 @@ public class Level {
 
     init();
     parseLevel();
-
-    System.out.println("Blocks Per Row: " + blocksPerRow);
-    System.out.println("Window Width: " + GameManager.WIDTH);
-    System.out.println("Block Width Precentage: " + (1.0 / (GameManager.WIDTH / blocksPerRow)));
   }
 
   public void init(){
@@ -29,7 +25,7 @@ public class Level {
       Scanner scan = new Scanner(file);
       String firstRow = scan.nextLine();
       blocksPerRow = firstRow.split(",").length;
-      blockSize = GameManager.WIDTH / (blocksPerRow) + 2;
+      blockSize = (int)(0.5 * GameManager.WIDTH / (blocksPerRow)) + 2;
       scan.close();
     } catch(Exception e) {
       e.printStackTrace();
