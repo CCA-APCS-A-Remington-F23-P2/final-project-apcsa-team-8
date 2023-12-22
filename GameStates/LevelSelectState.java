@@ -17,7 +17,7 @@ public class LevelSelectState extends GameState {
     this.gsm = gsm;
 
     try{
-      bg = new Collidable(0, 0, GameManager.WIDTH, GameManager.HEIGHT, Color.BLUE);
+      bg = new Collidable(0, 0, GameManager.WIDTH, GameManager.HEIGHT, "GameStates/stars.jpg");
 
       titleColor = new Color(128, 0,0);
       titleFont = new Font("Arial", Font.BOLD, 18);
@@ -47,7 +47,7 @@ public class LevelSelectState extends GameState {
       if(i == currentChoice) g.setColor(Color.WHITE);
       else g.setColor(Color.RED);
 
-      g.drawString(options[i], 145, 140 + i * 15);
+      g.drawString(options[i], 130, 140 + i * 15);
     }
 
   }

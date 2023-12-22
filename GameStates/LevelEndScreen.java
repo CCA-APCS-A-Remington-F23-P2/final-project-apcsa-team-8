@@ -22,7 +22,7 @@ public class LevelEndScreen extends GameState {
     this.gsm = gsm;
 
     try{
-      bg = new Collidable(0, 0, GameManager.WIDTH, GameManager.HEIGHT, Color.BLUE);
+      bg = new Collidable(0, 0, GameManager.WIDTH, GameManager.HEIGHT, "GameStates/stars.jpg");
 
       titleColor = new Color(128, 0,0);
       titleFont = new Font("Arial", Font.BOLD, 18);
