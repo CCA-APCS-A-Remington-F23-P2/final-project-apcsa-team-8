@@ -28,8 +28,7 @@ public class Collidable extends Graphable{
 
   public boolean collidesWith(ArrayList<Block> blocks){
     for(Block b: blocks){
-      if(b.getType() == 1) continue;
-      if(b.getType() == 2){
+      if(b.getType() == 2 || b.getType() == 3){
         if(collidesWith(b)) return true;
       }
     }
@@ -64,7 +63,7 @@ public class Collidable extends Graphable{
 
   public boolean collidesWithX(ArrayList<Block> blocks){
     for(Block b: blocks)
-      if(b.getType() == 2 && collidesWithX(b) &&  collidesWith(b))
+      if((b.getType() == 2 || b.getType() == 3) && collidesWithX(b) &&  collidesWith(b))
         return true;
     return false;
   }
@@ -86,7 +85,7 @@ public class Collidable extends Graphable{
 
   public boolean collidesWithY(ArrayList<Block> blocks){
     for(Block b: blocks)
-      if(b.getType() == 2 && collidesWithY(b) && collidesWith(b))
+      if((b.getType() == 2 || b.getType() == 3) && collidesWithY(b) && collidesWith(b))
         return true;
     return false;
   }
@@ -112,5 +111,12 @@ public class Collidable extends Graphable{
     return (x < 0) ||
            (x > GameManager.WIDTH) ||
            (y > GameManager.HEIGHT);
+  }
+
+  public boolean collidesWithType(int type, ArrayList<Block> blocks){
+    for(Block b: blocks){
+      if(b.getType() == type && collidesWith(b)) return true;
+    }
+    return false;
   }
 }

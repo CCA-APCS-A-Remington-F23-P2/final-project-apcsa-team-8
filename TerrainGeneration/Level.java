@@ -33,6 +33,7 @@ public class Level {
 
     blocks.put(1, Color.BLACK);
     blocks.put(2, Color.GRAY);
+    blocks.put(3, Color.YELLOW);
   }
 
   public void parseLevel(){

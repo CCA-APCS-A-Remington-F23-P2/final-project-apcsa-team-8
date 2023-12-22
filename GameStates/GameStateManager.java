@@ -9,7 +9,8 @@ public class GameStateManager {
   public enum State {
     MENU(0),
     LEVEL_SELECT(1),
-    LEVEL1(2);
+    LEVEL1(2),
+    ENDSCREEN(3);
 
     public int state;
 
@@ -26,6 +27,7 @@ public class GameStateManager {
     states.add(new MenuState(this));
     states.add(new LevelSelectState(this));
     states.add(new Level1State(this));
+    states.add(new LevelEndScreen(this));
   }
 
   public void setState(int state){
