@@ -11,6 +11,7 @@ public class Moveable extends Collidable {
   private Vector velocity;
   private Vector gravity = new Vector(0, 0.05);
   private Coordinate prevPosition;
+  int collisionTick = 0;
   
 
   public Moveable(int x, int y, int w, int h, String imageUrl, Vector velocity) {
@@ -65,7 +66,6 @@ public class Moveable extends Collidable {
   }
 
   public void updatePose(ArrayList<Block> blocks){
-
     Coordinate prev = this.getPosition();
 
     Coordinate next = nextPose();
@@ -75,8 +75,12 @@ public class Moveable extends Collidable {
     
 
     if(futurePose.collidesWithX(blocks)){
-      setVelocityX(0);
+      collisionTick++;
       next.setX(prev.getX());
+      if(collisionTick > 5){
+        collisionTick = 0;
+        velocity.setX(0);
+      }
     }
     if(futurePose.collidesWithY(blocks)){
       setVelocityY(0);
@@ -93,7 +97,6 @@ public class Moveable extends Collidable {
   
   public void update(Graphics window, ArrayList<Block> blocks){
     updatePose(blocks);
-    window.setColor(Color.WHITE);
     draw(window);
   }
 }

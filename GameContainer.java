@@ -21,25 +21,19 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
 
   private BufferedImage back;
 
-  private Moveable object;
-  private Collidable floor;
   private Terrain terrain;
   private Player player;
-
-  private Timer jumpDelay;
+  private AsteroidBelt asteroidBelt;
 
   public GameContainer() {
     this.addKeyListener(this);
     new Thread(this).start();
     setVisible(true);
-
-    object = new Moveable(100, 100, 10, 10, new Vector(0,0));
-    floor = new Collidable(0, 200, 800, 20, Color.GREEN);
+    
     terrain = new Terrain();
-    terrain.setSelectedLevel(0);
-    player = new Player(100, 100, 30, 30, new Vector(0,0));
-
-    jumpDelay = new Timer(200);
+    terrain.setSelectedLevel(1);
+    player = new Player(100, 100, 15, 30);
+    asteroidBelt = new AsteroidBelt(2, 3);
   }
 
   public void update(Graphics window) {
@@ -53,67 +47,42 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
       back = (BufferedImage)(createImage(getWidth(),getHeight()));
     Graphics gameWindow = back.createGraphics();
     gameWindow.clearRect(0,0,getWidth(),getHeight());
-
-    
-    // for(String i : keyMap.keySet()) {
-    //   if (keyMap.get(i)) {
-    //     System.out.println(i);
-    //   }
-    // }
-
-
-    // floor.draw(gameWindow);
-
     
     terrain.draw(gameWindow);
-    object.update(gameWindow, terrain.getTerrain());
     player.update(gameWindow, terrain.getTerrain());
+    asteroidBelt.update(gameWindow, terrain.getTerrain(), player);
 
     
     twoDGraph.drawImage(back, null, 0, 0);
   }
 
-  public void jump(){
-    if(jumpDelay.isFinished()){
-      player.setVelocityY(-1 * 1.5);
-    }
-  }
-
   public void keyPressed(KeyEvent e) {
 
-    double speed = 1.5;
-
-    if (e.getKeyCode() == KeyEvent.VK_LEFT)
-    {
-      keyMap.put("left", true);
-      player.setVelocityX(-speed);
-      player.reflectImageToBackwards();
-    }
-    if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-    {
-      keyMap.put("right", true);
-      player.setVelocityX(speed);
-      player.reflectImageToForwards();
-    }
-    if (e.getKeyCode() == KeyEvent.VK_UP)
-    {
-      keyMap.put("up", true);
-      jump();
-      keyMap.remove("up");
-    }
-    if (e.getKeyCode() == KeyEvent.VK_DOWN)
-    {
-      keyMap.put("down", true);
-      player.setVelocityY(speed);
-    }
-    if (e.getKeyCode() == KeyEvent.VK_SPACE)
-    {
-      keyMap.put("space", true);
-      jump();
-      keyMap.remove("space");
-    }
-    if(e.getKeyCode() == KeyEvent.VK_ENTER){
-      System.exit(0);
+    switch(e.getKeyCode()){
+      case KeyEvent.VK_UP:
+        player.jump();
+        break;
+      case KeyEvent.VK_DOWN:
+        player.fall();
+        break;
+      case KeyEvent.VK_LEFT:
+        player.walkBackwards();
+        break;
+      case KeyEvent.VK_RIGHT:
+        player.walkForwards();
+        break;
+      case KeyEvent.VK_SPACE:
+        player.jump();
+        break;
+      case KeyEvent.VK_ESCAPE:
+        System.exit(0);
+        break;
+      case KeyEvent.VK_1:
+        terrain.setSelectedLevel(0);
+        break;
+      case KeyEvent.VK_2:
+        terrain.setSelectedLevel(1);
+        break;
     }
     repaint();
   }
@@ -129,16 +98,6 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
       keyMap.put("right", false);
       player.setVelocityX(0.0);
     }
-    // if (e.getKeyCode() == KeyEvent.VK_UP)
-    // {
-    //   keyMap.put("up", false);
-    //   object.setVelocityY(0.0);
-    // }
-    // if (e.getKeyCode() == KeyEvent.VK_DOWN)
-    // {
-    //   keyMap.put("down", false);
-    //   object.setVelocityY(0.0);
-    // }
     if (e.getKeyCode() == KeyEvent.VK_SPACE)
     {
       keyMap.put("space", false);
@@ -153,7 +112,7 @@ public class GameContainer extends Canvas implements KeyListener, Runnable {
   public void run() {
     while(true) {
       //roughly 60 fps
-      Timer.sleep(10);
+      Timer.sleep(15);
       repaint();
     }
   }

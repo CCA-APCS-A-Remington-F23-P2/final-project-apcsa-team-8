@@ -80,13 +80,6 @@ public class Collidable extends Graphable{
     double tx = this.getPosition().getX();
     double rx = other.getPosition().getX();
 
-    // System.out.println(tx + " " + rx);
-    // System.out.println(tw + " " + rw);
-    // System.out.println("RW < TX " + (rw < tx));
-    // System.out.println("TW < TX " + (tw < tx));
-    // System.out.println("RW > RX " + (rw > rx));
-    // System.out.println("TW > RX " + (tw > rx));
-
     return ((rw < tx || rw > rx) &&
             (tw < tx || tw > rx));
   }
@@ -111,5 +104,13 @@ public class Collidable extends Graphable{
 
     return ((rh < ty || rh > ry) &&
             (th < ty || th > ry));
+  }
+
+  public boolean outOfBounds(){
+    double x = this.getPosition().getX();
+    double y = this.getPosition().getY();
+    return (x < 0) ||
+           (x > GameManager.WIDTH) ||
+           (y > GameManager.HEIGHT);
   }
 }

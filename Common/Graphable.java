@@ -69,8 +69,11 @@ public class Graphable {
 
   public void draw(Graphics window) {
     if(image != null){
+
+      
       //generate inputed image
-      window.drawImage(image, position.getX() + (reflected ? size.getX() : 0), position.getY(), (reflected ? -1 : 1) * size.getX(), size.getY(), null);
+      window.fillRect(position.getX(), position.getY(), size.getX(), size.getY());
+      window.drawImage(image, position.getX() - 20 + (reflected ? size.getX() + 40: 0), position.getY() - 5, (reflected ? -1 : 1) * (size.getX() + 40), size.getY() + 10, null);
     }
     else{
       //use color provides is not null, or just default to yellow
